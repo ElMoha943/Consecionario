@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Proyecto_Consecionario
 {
-    class Coche
+    class Vehiculo
     {
         //PROPIEDADES
         private int id;
@@ -14,13 +16,13 @@ namespace ConsoleApp1
         private double precio;
 
         //CONSTRUCTOR
-        public Coche(int id, string marca, string modelo, int km, double precio)
+        public Vehiculo(int id, string marca, string modelo, int km, double precio)
         {
-            this.Id = id;
-            this.Marca = marca;
-            this.Modelo = modelo;
-            this.Km = km;
-            this.Precio = precio;
+            this.id = id;
+            this.marca = marca;
+            this.modelo = modelo;
+            this.km = km;
+            this.precio = precio;
         }
 
         //Gets y Sets
@@ -28,12 +30,11 @@ namespace ConsoleApp1
         public string Marca { get => marca; set => marca = value; }
         public string Modelo { get => modelo; set => modelo = value; }
         public int Km { get => km; set => km = value; }
-        public double Precio { get => precio; set => precio = value; }
+        public virtual double Precio { get => precio; set => precio = value; }
 
-        //Funcion normalizada tostring, para mostrar el contenido del objeto
         public override string ToString()
         {
-            return "Marca: "+marca+" Modelo: "+modelo+" Precio: "+precio;
+            return "Marca: " + marca + " Modelo: " + modelo + " Precio: " + precio;
         }
     }
 }

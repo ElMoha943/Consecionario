@@ -1,68 +1,178 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Proyecto_Consecionario
 {
     class Consecionario
     {
-        //Arrenglo (_coches) de objetos (Coche)
-        private Coche[] _coches;
-        private int _limite;
+        private Auto[] _Autos;
+        private Moto[] _Motos;
+        private Camion[] _Camiones;
+        private int _numautos, _nummotos, _numcamiones;
 
-        private int _numCocches;
-
-        //Constructor de un consecionario con un limite de coches;
-        public Consecionario(int limite)
+        public Consecionario()
         {
-            this._coches = new Coche[limite];
-            _limite = limite;
-            _numCocches = 0;
+            this._Autos = new Auto[5];
+            this._Motos = new Moto[5];
+            this._Camiones = new Camion[5];
+            _numautos = 0;
+            _nummotos = 0;
+            _numcamiones = 0;
         }
 
         //METODOS
-        public void AddCar(Coche c)
+        public void AddCar(string tipo, string marca, string modelo, int km, double precio, bool airbag, bool seguro)
         {
-            if (c != null && _numCocches < _coches.Length) {
-                _coches[_numCocches] = c;
-                _numCocches++;
+            switch (tipo)
+            {
+                case "auto":
+                    this._Autos[_numautos] = new Auto(_numautos, marca, modelo, km, precio, airbag, seguro);
+                    _numautos++;
+                    break;
+
+                case "moto":
+                    this._Motos[_nummotos] = new Moto(_nummotos, marca, modelo, km, precio, seguro);
+                    _nummotos++;
+                    break;
+
+                case "camion":
+                    this._Camiones[_numcamiones] = new Camion(_numcamiones, marca, modelo, km, precio, seguro);
+                    _numcamiones++;
+                    break;
             }
         }
-        public void RemoveCar(Coche c)
+        public void RemoveCar(string tipo, int id)
         {
-            int auxi=-1;
-            if (c!=null && _numCocches !=0) {
-                for (int i = 0; i < _numCocches; i++)
-                {
-                    if (c.Id == _coches[i].Id) //COMPARA EL ID DADO POR EL USUARIO CON LOS IDS DE LOS COCHES EN LA LISTA
-                    { 
-                        auxi = i;
-                    }
-                }
-                if (auxi == -1) {
-                    Console.WriteLine("El coche no existe");
-                }
-                else
-                {
-                    _coches[auxi] = null; //BORRA LA ENTRY
-                    for (int i = auxi; i < _numCocches; i++)
+            int auxi = -1;
+            switch (tipo)
+            {
+
+                case "auto":
+                    for (int i = 0; i < _numautos; i++)
                     {
-                        _coches[i] = _coches[i + 1]; //MUEVE TODAS LAS ENTRYS UNA POSICION ATRAS
+                        if (id == _Autos[i].Id) //COMPARA EL ID DADO POR EL USUARIO CON LOS IDS DE LOS COCHES EN LA LISTA
+                        {
+                            auxi = i;
+                        }
                     }
-                    _numCocches--;
-                }
+                    if (auxi == -1)
+                    {
+                        Console.WriteLine("El coche no existe");
+                    }
+                    else
+                    {
+                        _Autos[auxi] = null; //BORRA LA ENTRY
+                        for (int i = auxi; i < _numautos; i++)
+                        {
+                            _Autos[i] = _Autos[i + 1]; //MUEVE TODAS LAS ENTRYS UNA POSICION ATRAS
+                        }
+                        _numautos--;
+                    }
+                    break;
+
+                case "moto":
+                    for (int i = 0; i < _nummotos; i++)
+                    {
+                        if (id == _Motos[i].Id) //COMPARA EL ID DADO POR EL USUARIO CON LOS IDS DE LOS COCHES EN LA LISTA
+                        {
+                            auxi = i;
+                        }
+                    }
+                    if (auxi == -1)
+                    {
+                        Console.WriteLine("La moto no existe");
+                    }
+                    else
+                    {
+                        _Motos[auxi] = null; //BORRA LA ENTRY
+                        for (int i = auxi; i < _nummotos; i++)
+                        {
+                            _Motos[i] = _Motos[i + 1]; //MUEVE TODAS LAS ENTRYS UNA POSICION ATRAS
+                        }
+                        _nummotos--;
+                    }
+                    break;
+
+                case "camion":
+                    for (int i = 0; i < _numcamiones; i++)
+                    {
+                        if (id == _Camiones[i].Id) //COMPARA EL ID DADO POR EL USUARIO CON LOS IDS DE LOS COCHES EN LA LISTA
+                        {
+                            auxi = i;
+                        }
+                    }
+                    if (auxi == -1)
+                    {
+                        Console.WriteLine("El coche no existe");
+                    }
+                    else
+                    {
+                        _Camiones[auxi] = null; //BORRA LA ENTRY
+                        for (int i = auxi; i < _numcamiones; i++)
+                        {
+                            _Camiones[i] = _Camiones[i + 1]; //MUEVE TODAS LAS ENTRYS UNA POSICION ATRAS
+                        }
+                        _numcamiones--;
+                    }
+                    break;
+
+                default:
+
+                    break;
+        }
+    }
+        public void ClearCars(string tipo)
+        {
+            switch (tipo)
+            {
+                case "auto":
+                    this._Autos = new Auto[100];
+                    _numautos = 0;
+                    break;
+
+                case "moto":
+                    this._Motos = new Moto[100];
+                    _nummotos = 0;
+                    break;
+
+                case "camion":
+                    this._Camiones = new Camion[100];
+                    _numcamiones = 0;
+                    break;
+
             }
         }
-        public void ClearCars()
+        public void ShowCars(string tipo)
         {
-            this._coches = new Coche[_limite];
-            _numCocches = 0;
-        }
-        public void ShowCars()
-        {
-            int i;
-            for (i = 0; i < _numCocches; i++) {
-                Console.WriteLine(_coches[i].ToString());
+            switch (tipo)
+            {
+                case "auto":
+                    for (int i = 0; i < _numautos; i++)
+                    {
+                        Console.WriteLine(_Autos[i].ToString());
+                    }
+                    break;
+
+                case "moto":
+                    for (int i = 0; i < _nummotos; i++)
+                    {
+                        Console.WriteLine(_Motos[i].ToString());
+                    }
+                    break;
+
+                case "camion":
+                    for (int i = 0; i < _numcamiones; i++)
+                    {
+                        Console.WriteLine(_Camiones[i].ToString());
+                    }
+                    break;
+                default:
+                    Console.WriteLine("NADA QUE MOSTRAR");
+                    break;
+
             }
         }
     }

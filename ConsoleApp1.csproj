@@ -3,6 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Consecionario</AssemblyName>
+    <RootNamespace>Consecionario</RootNamespace>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
 </Project>
